@@ -12,11 +12,16 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth/login');
 });
 
-Route::resource('/kategori', 'CategoryController')->except([
-    'create', 'show'
-]);
-
-Route::resource('/dashboard', 'DashboardController');
+Auth::routes();
+Route::group(['middleware' => 'auth'], function () {
+    Route::resource('/kategori', 'CategoryController')->except([
+        'create', 'show'
+    ]);
+    
+    Route::resource('/produk', 'ProductController');
+    
+    Route::resource('/dashboard', 'DashboardController');
+});

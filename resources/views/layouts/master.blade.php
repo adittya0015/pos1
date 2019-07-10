@@ -45,7 +45,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </a>
               <div class="dropdown-divider"></div>
               <a href="#" class="dropdown-item dropdown-footer">Pengaturan</a>
-              <a href="#" class="dropdown-item dropdown-footer">Logout</a>
+            <a href="{{ route('logout') }}" onclick="event.preventDefault();
+            document.getElementById('logout-form').submit();" class="dropdown-item dropdown-footer"><p>{{ __('Logout') }}</p></a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+            </form>
           </div>
       </li>
   </ul>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -25,7 +26,8 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
+
 
     /**
      * Create a new controller instance.
@@ -35,5 +37,22 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function login(Request $request)
+    {
+        $this->validate($request, [
+            'username' => 'required|string',
+            'password' => 'required|string'
+        ]);
+        if (auth()->attempt(['username' => $request->username, 'password' => $request->password, 'status' => 1])) {
+            return redirect()->intended('dashboard');
+        }
+        return redirect()->back()->with(['error' => 'Password yang anda masukan salah / Username tidak ditemukan']);
+    }
+
+    public function username()
+    {
+        return $this->username;
     }
 }

@@ -37,7 +37,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <div class="media">
                       <div class="media-body">
                           <h3 class="dropdown-item-title">
-                              Brad Diesel
+                            {{ Auth::user()->name }}
                               <span class="float-right text-sm text-danger"></span>
                           </h3>
                       </div>
